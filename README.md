@@ -17,7 +17,7 @@ Docker run SQL Server:
 docker run -d --name sqlserver -p 1433:1433 -e 'MSSQL_TCP_PORT=1433' -e 'MSSQL_TCP_ADDR=0.0.0.0' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Among7201' mcr.microsoft.com/mssql/server:2022-latest
 
 # Connection string
-Server=127.0.0.1,1433;Database=richillcapital;User Id=msat7201;Password=among7201;
+Server=127.0.0.1,1433;Database=richillcapital;User Id=msat7201;Password=Among7201;
 ```
 
 Docker run PostgreSQL:
