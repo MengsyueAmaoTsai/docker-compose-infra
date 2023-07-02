@@ -8,15 +8,7 @@ USE test;
 ALTER ROLE db_owner ADD MEMBER mast7201;
 
 
-CREATE TABLE instruments (
-    symbol VARCHAR(64) PRIMARY KEY,
-    ticker VARCHAR(32),
-    description VARCHAR(256),
-    type int,
-    exchange VARCHAR(32)
-);
-
-
+-- CREATE TABLE instruments ();
 -- CREATE TABLE ticks ();
 -- CREATE TABLE bars ();
 -- CREATE TABLE market_depth ();
@@ -30,3 +22,11 @@ CREATE TABLE instruments (
 -- CREATE TABLE trades;
 
 -- CREATE TABLE bots;
+
+CREATE TABLE bots (
+    id VARCHAR(64) PRIMARY KEY,
+    side VARCHAR(8),
+    type VARCHAR(16),
+    platform VARCHAR(32),
+    tags VARCHAR(256)
+);
