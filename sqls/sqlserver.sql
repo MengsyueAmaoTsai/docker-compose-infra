@@ -91,3 +91,13 @@ CREATE TABLE trades (
     FOREIGN KEY (account_id) REFERENCES accounts (id),
     FOREIGN KEY (symbol) REFERENCES instruments (symbol)
 );
+
+CREATE TABLE bots (
+    id VARCHAR(64) PRIMARY KEY,
+    description VARCHAR(MAX),
+    type VARCHAR(16) CHECK (type IN ('Intraday', 'Position')),
+    tags VARCHAR(MAX),
+    account_id VARCHAR(128),
+
+    FOREIGN KEY (account_id) REFERENCES accounts (id)
+);
