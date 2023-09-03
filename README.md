@@ -35,3 +35,9 @@ docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=among7201 mysql/m
 ### SQL
 
 ### NoSQL
+
+
+### Docker Compose
+```bash
+docker-compose up -d
+```
