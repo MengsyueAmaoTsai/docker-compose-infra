@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_CONFIG_FILE=/etc/rabbitmq/rabbitmq.conf
+      - RABBITMQ_DEFAULT_USER=msat7201
+      - RABBITMQ_DEFAULT_PASS=among7201
+    volumes:
+      - /path/to/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Among7201
