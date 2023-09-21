@@ -21,3 +21,10 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Among7201
+      
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass among7201
