@@ -36,6 +36,12 @@ docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=among7201 mysql/m
 
 ### NoSQL
 
+## Cache
+### Redis
+```bash
+docker run -d --name redis -p 6379:6379 redis:latest redis-server --requirepass among7201
+
+```
 
 ### Docker Compose
 ```bash
