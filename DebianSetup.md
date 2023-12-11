@@ -30,6 +30,13 @@ Install the Docker packages.
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
+Update the package index, and install the latest version of Docker Compose:
+```bash
+sudo apt-get update
+sudo apt-get install docker-compose-plugin
+```
+
+
 ## Git Installation
 Install git
 ```bash
