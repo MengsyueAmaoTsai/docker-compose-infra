@@ -1,39 +1,111 @@
 version: '3.4'
+
+networks:
+  es-net:
+    driver: bridge
+
+  seq-net:
+    driver: bridge
+
 services:
-  seq:
-    image: datalust/seq:latest
-    container_name: seq 
-    ports:
-      - "5341:5341"
-      - "8081:80"
-    environment: 
-      - ACCEPT_EULA=Y
-      
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      - RABBITMQ_CONFIG_FILE=/etc/rabbitmq/rabbitmq.conf
-      - RABBITMQ_DEFAULT_USER=msat7201
-      - RABBITMQ_DEFAULT_PASS=among7201
-    volumes:
-      - /path/to/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
+
     ports:
-      - "1433:1433"
+      - 1433:1433
+    
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=Among7201
-      
+      - SA_PASSWORD=Strong_Password
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+
+    ports:
+      - 27017:27017
+
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_DATABASE=test
+    
+    command: mongod --bind_ip_all
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+
+    ports:
+      - 8086:8086
+    
+    environment:
+      - INFLUXDB_DB=test
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin
+      - INFLUXDB_HTTP_AUTH_ENABLED=true
+      - INFLUXDB_HTTP_BIND_ADDRESS=:8086
+      - INFLUXDB_HTTP_FLUX_ENABLED=true
+
   redis:
     image: redis:latest
     container_name: redis
+
     ports:
-      - "6379:6379"
-    command: redis-server --requirepass among7201
+      - 6379:6379
+    
+    command: redis-server --bind 0.0.0.0 
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
+    container_name: elasticsearch
+    ports:
+      - 9200:9200
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - ELASTIC_USERNAME=admin
+      - ELASTIC_PASSWORD=admin
+    networks:
+      - es-net
+
+
+  kafka:
+    image: wurstmeister/kafka:latest
+    container_name: kafka
+    
+    ports:
+      - 9092:9092
+
+    environment:
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+
+    depends_on:
+      - zookeeper      
+
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    container_name: zookeeper
+    ports:
+      - "2181:2181"      
+
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+
+    ports:
+      - 5341:5341
+      - 15341:80
+
+    environment:
+      - ACCEPT_EULA=Y
+      - API_KEY=admin
+      
+    networks:
+      - seq-net      
