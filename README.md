@@ -16,7 +16,7 @@ Docker run SQL Server:
 
 ```powershell
 # Empty server
-docker run -d --name sqlserver -p 1433:1433 -e 'MSSQL_TCP_PORT=1433' -e 'MSSQL_TCP_ADDR=0.0.0.0' -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_USER=msat7201' 'SA_PASSWORD=Among7201' mcr.microsoft.com/mssql/server:2022-latest 
+docker run -d --name mssql -p 1433:1433 -e 'MSSQL_TCP_PORT=1433' -e 'MSSQL_TCP_ADDR=0.0.0.0' -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_USER=SA' 'SA_PASSWORD=Pa55w0rd!' mcr.microsoft.com/mssql/server:2022-latest 
 
 # Connection string
 "Server=dev-127.0.0.1,1433;Database=test;User Id=SA;Password=Among7201;TrustServerCertificate=true;"
